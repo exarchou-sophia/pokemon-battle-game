@@ -1,2 +1,1 @@
-# pokemon-battle-game
-Pokemon Battle Game
+# PokemonBattleGame Backend
