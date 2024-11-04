@@ -13,6 +13,16 @@ rosterRouter.get("/", (req, res) => {
     ])
 })
 
+rosterRouter.get("/:id", (req, res) => {
+    console.log("get roster by id", req.params.id)
+
+    return res.status(200).json({
+        id: 0,
+        ownerId: 0,
+        pokemonIds: [35],
+    })
+})
+
 rosterRouter.post("/", validateRoster, (req, res) => {
     const { ownerId } = req.body
     console.log("ownerId", ownerId)

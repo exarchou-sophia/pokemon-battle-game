@@ -15,6 +15,18 @@ userRouter.get("/", (req, res) => {
     ])
 })
 
+userRouter.get("/:id", (req, res) => {
+    console.log("get user by id", req.params.id)
+
+    return res.status(200).json({
+        id: 0,
+        firstName: "Sonia",
+        lastName: "Vecchia",
+        country: "Italy",
+        username: "Sunshine62",
+    })
+})
+
 userRouter.post("/", validateUser, (req, res) => {
     const { firstName } = req.body
     console.log("firstName", firstName)
