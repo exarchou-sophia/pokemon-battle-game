@@ -4,6 +4,7 @@ import bodyParser from "body-parser"
 
 import { userRouter } from "./routes/user-routes.js"
 import { rosterRouter } from "./routes/roster-routes.js"
+import { battleRouter } from "./routes/battle-routes.js"
 
 dotenv.config()
 const app = express()
@@ -18,6 +19,7 @@ app.get("/", (_, res) => {
 
 app.use("/api/v1/users", userRouter)
 app.use("/api/v1/rosters", rosterRouter)
+app.use("/api/v1/battles", battleRouter)
 
 app.listen(process.env.PORT, () => {
     console.log(`the server is running on http://localhost:${process.env.PORT}`)
