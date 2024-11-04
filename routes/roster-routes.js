@@ -53,6 +53,10 @@ rosterRouter.get("/:id", (req, res) => {
 rosterRouter.post("/", validateRoster, (req, res) => {
     const { ownerId } = req.body
     console.log("ownerId", ownerId)
-    // ????????
+
+    rostersCollection.push({
+        id: rostersCollection.length + 1,
+        ...roster,
+    })
     return res.status(201).json()
 })
