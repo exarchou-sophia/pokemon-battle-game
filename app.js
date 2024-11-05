@@ -32,13 +32,12 @@ app.use("/api/v1/rosters", rosterRouter)
 app.use("/api/v1/battle-outcomes", battleOutcomeRouter)
 app.use("/api/v1/leaderboards", leaderboardRouter)
 
+const PORT = process.env.PORT || 3000
 try {
     await connect(process.env.DATABASE_CONNECTION_STR)
 
-    app.listen(process.env.PORT, async () => {
-        console.log(
-            `the server is running on http://localhost:${process.env.PORT}`,
-        )
+    app.listen(PORT, async () => {
+        console.log(`the server is running on http://localhost:${PORT}`)
     })
 } catch (error) {
     console.log(error)
