@@ -5,7 +5,7 @@ import { connect } from "mongoose"
 
 import { userRouter } from "./routes/user-routes.js"
 import { rosterRouter } from "./routes/roster-routes.js"
-import { battleRouter } from "./routes/battle-routes.js"
+import { battleOutcomeRouter } from "./routes/battle-outcome-routes.js"
 import { leaderboardRouter } from "./routes/leaderboard-routes.js"
 
 dotenv.config()
@@ -21,7 +21,7 @@ app.get("/", (_, res) => {
 
 app.use("/api/v1/users", userRouter)
 app.use("/api/v1/rosters", rosterRouter)
-app.use("/api/v1/battles", battleRouter)
+app.use("/api/v1/battle-outcomes", battleOutcomeRouter)
 app.use("/api/v1/leaderboards", leaderboardRouter)
 
 try {
