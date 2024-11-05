@@ -2,7 +2,7 @@ import { model, Schema } from "mongoose"
 
 const battleOutcome = new Schema({
     playerRed: {
-        playerId: {
+        userId: {
             type: String,
             required: true,
         },
@@ -12,7 +12,7 @@ const battleOutcome = new Schema({
         },
     },
     playerBlue: {
-        playerId: {
+        userId: {
             type: String,
             required: true,
         },

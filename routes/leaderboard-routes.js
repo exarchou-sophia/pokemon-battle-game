@@ -10,7 +10,7 @@ leaderboardRouter.get("/", async (_, res) => {
                 redPlayers: [
                     {
                         $project: {
-                            playerId: "$playerRed.playerId",
+                            userId: "$playerRed.userId",
                             score: "$playerRed.score",
                         },
                     },
@@ -18,7 +18,7 @@ leaderboardRouter.get("/", async (_, res) => {
                 bluePlayers: [
                     {
                         $project: {
-                            playerId: "$playerBlue.playerId",
+                            userId: "$playerBlue.userId",
                             score: "$playerBlue.score",
                         },
                     },
@@ -33,14 +33,14 @@ leaderboardRouter.get("/", async (_, res) => {
         { $unwind: "$allPlayers" },
         {
             $group: {
-                _id: "$allPlayers.playerId",
+                _id: "$allPlayers.userId",
                 totalScore: { $sum: "$allPlayers.score" },
             },
         },
         {
             $project: {
                 _id: 0,
-                playerId: "$_id",
+                userId: "$_id",
                 score: "$totalScore",
             },
         },
