@@ -1,5 +1,6 @@
 import { Router } from "express"
 import { validateRoster } from "../middlewares/validate-roster.js"
+import { createRandomNumbers } from "../utils/random.js"
 
 export const rosterRouter = Router()
 
@@ -59,4 +60,22 @@ rosterRouter.post("/", validateRoster, (req, res) => {
         ...roster,
     })
     return res.status(201).json()
+})
+
+rosterRouter.get("/random/:amount", async (req, res) => {
+    const { amount } = req.params
+
+    try {
+        const maxPokemonAmount = await fetch(
+            `${process.env.POKEMON_BASE_URL}/pokemon-species`,
+        )
+            .then((res) => res.json())
+            .then(({ count }) => count)
+
+        return res.status(200).json({
+            pokemonIds: createRandomNumbers(amount, 1, maxPokemonAmount),
+        })
+    } catch (error) {
+        return res.status(500).json({ ...error })
+    }
 })

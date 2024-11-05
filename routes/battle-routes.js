@@ -42,9 +42,9 @@ battleRouter.get("/:id", (req, res) => {
 })
 
 // start battle by creating it (post)
-// result gives battle back including who win and their scoring
+// result gives battle back including who win and their scoring backend or frontend
 battleRouter.post("/", (req, res) => {
-    // TODO here place logic to calculate the winner
+    // TODO here place logic to calculate the winner ????
     const postExample = {
         playerRed: {
             playerId: 0,
