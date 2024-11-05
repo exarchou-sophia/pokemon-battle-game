@@ -2,7 +2,7 @@ import express from "express"
 import dotenv from "dotenv"
 import bodyParser from "body-parser"
 import { connect } from "mongoose"
-
+import cors from "cors"
 import { userRouter } from "./routes/user-routes.js"
 import { rosterRouter } from "./routes/roster-routes.js"
 import { battleOutcomeRouter } from "./routes/battle-outcome-routes.js"
@@ -10,6 +10,14 @@ import { leaderboardRouter } from "./routes/leaderboard-routes.js"
 
 dotenv.config()
 const app = express()
+
+app.use(
+    cors({
+        origin: "http://localhost:5173",
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        allowedHeaders: ["Content-Type", "Authorization"],
+    }),
+)
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.raw())
