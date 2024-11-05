@@ -1,6 +1,7 @@
 import express from "express"
 import dotenv from "dotenv"
 import bodyParser from "body-parser"
+import { connect } from "mongoose"
 
 import { userRouter } from "./routes/user-routes.js"
 import { rosterRouter } from "./routes/roster-routes.js"
@@ -23,6 +24,14 @@ app.use("/api/v1/rosters", rosterRouter)
 app.use("/api/v1/battles", battleRouter)
 app.use("/api/v1/leaderboards", leaderboardRouter)
 
-app.listen(process.env.PORT, () => {
-    console.log(`the server is running on http://localhost:${process.env.PORT}`)
-})
+try {
+    await connect(process.env.DATABASE_CONNECTION_STR)
+
+    app.listen(process.env.PORT, async () => {
+        console.log(
+            `the server is running on http://localhost:${process.env.PORT}`,
+        )
+    })
+} catch (error) {
+    console.log(error)
+}
