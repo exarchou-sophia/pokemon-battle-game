@@ -1,6 +1,6 @@
 import { Router } from "express"
 import { validateUser } from "../middlewares/validate-user.js"
-import { validateAddFavPokemon } from "../middlewares/validate-add-fav-pokemon.js"
+import { validateUpdateFavPokemon } from "../middlewares/validate-update-fav-pokemon.js"
 import { User } from "../models/user.js"
 
 export const userRouter = Router()
@@ -45,7 +45,7 @@ userRouter.post("/", validateUser, async (req, res) => {
 
 userRouter.put(
     "/:id/add-fav-pokemon",
-    validateAddFavPokemon,
+    validateUpdateFavPokemon,
     async (req, res) => {
         const userId = req.params.id
         const { pokemonId } = req.body
@@ -59,6 +59,27 @@ userRouter.put(
         } catch (error) {
             res.status(500).json({
                 error: "Failed to add Pokémon to favorites",
+            })
+        }
+    },
+)
+
+userRouter.put(
+    "/:id/remove-fav-pokemon",
+    validateUpdateFavPokemon,
+    async (req, res) => {
+        const userId = req.params.id
+        const { pokemonId } = req.body
+        try {
+            const updatedUser = await User.findByIdAndUpdate(
+                userId,
+                { $pull: { favPokemonIds: pokemonId } },
+                { new: true },
+            )
+            res.status(200).json(updatedUser)
+        } catch (error) {
+            res.status(500).json({
+                error: "Failed to remove Pokémon from favorites",
             })
         }
     },

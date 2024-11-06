@@ -1,5 +1,5 @@
 import Joi from "joi"
 
-export const addFavPokemonSchema = Joi.object({
+export const updateFavPokemonSchema = Joi.object({
     pokemonId: Joi.number().required(),
 })
