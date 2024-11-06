@@ -1,5 +1,6 @@
 import { Router } from "express"
 import { validateUser } from "../middlewares/validate-user.js"
+import { validateAddFavPokemon } from "../middlewares/validate-add-fav-pokemon.js"
 import { User } from "../models/user.js"
 
 export const userRouter = Router()
@@ -41,3 +42,24 @@ userRouter.post("/", validateUser, async (req, res) => {
             .json({ message: "Internal Server Error", error: error.message })
     }
 })
+
+userRouter.put(
+    "/:id/add-fav-pokemon",
+    validateAddFavPokemon,
+    async (req, res) => {
+        const userId = req.params.id
+        const { pokemonId } = req.body
+        try {
+            const updatedUser = await User.findByIdAndUpdate(
+                userId,
+                { $addToSet: { favPokemonIds: pokemonId } },
+                { new: true },
+            )
+            res.status(200).json(updatedUser)
+        } catch (error) {
+            res.status(500).json({
+                error: "Failed to add Pokémon to favorites",
+            })
+        }
+    },
+)

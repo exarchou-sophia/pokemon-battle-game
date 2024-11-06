@@ -5,6 +5,7 @@ const user = new Schema({
     lastName: { type: String, require: true },
     userName: { type: String, require: true },
     country: { type: String, require: false },
+    favPokemonIds: [{ type: Number }],
 })
 
 export const User = model("User", user)
