@@ -2,29 +2,12 @@ import { Router } from "express"
 import { validateUser } from "../middlewares/validate-user.js"
 import { validateUpdateFavPokemon } from "../middlewares/validate-update-fav-pokemon.js"
 import { User } from "../models/user.js"
+import { deleteUserById, getUsers } from "../controllers/user-controller.js"
 
 export const userRouter = Router()
 
-userRouter.get("/", async (req, res) => {
-    const users = await User.find({})
-    return res.status(200).json(users)
-})
-
-userRouter.get("/:id", async (req, res) => {
-    try {
-        const user = await User.findById(req.params.id).exec()
-
-        if (user) {
-            return res.status(200).json(user)
-        } else {
-            return res.status(404).json({ message: "User not found" })
-        }
-    } catch (error) {
-        return res
-            .status(500)
-            .json({ message: "Internal Server Error", error: error.message })
-    }
-})
+userRouter.get("/", getUsers)
+userRouter.get("/:id", deleteUserById)
 
 userRouter.delete("/:id", async (req, res) => {
     try {
