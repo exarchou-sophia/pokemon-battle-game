@@ -26,6 +26,22 @@ userRouter.get("/:id", async (req, res) => {
     }
 })
 
+userRouter.delete("/:id", async (req, res) => {
+    try {
+        const result = await User.deleteOne({ _id: req.params.id }).exec()
+
+        if (result.deletedCount === 0) {
+            return res.status(404).json({ message: "User not found" })
+        }
+
+        return res.status(200).json()
+    } catch (error) {
+        return res
+            .status(500)
+            .json({ message: "Internal Server Error", error: error.message })
+    }
+})
+
 userRouter.post("/", validateUser, async (req, res) => {
     const user = req.body
 
